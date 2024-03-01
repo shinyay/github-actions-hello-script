@@ -31,6 +31,7 @@ jobs:
           script: console.log(context)
   echo-input:
     runs-on: ubuntu-latest
+    needs: run-script
     steps:
       - uses: actions/github-script@v7
         env:
