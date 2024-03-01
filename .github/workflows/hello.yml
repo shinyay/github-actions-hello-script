@@ -19,6 +19,7 @@ jobs:
     steps:
       - uses: actions/github-script@v7
         id: my-script-hello
+        name: Run script
         with:
           script: return "Hello, GitHub Script!"
           result-encoding: string
