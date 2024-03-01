@@ -29,15 +29,21 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: console.log(context)
-  hello_world_job:
+  echo-input:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: octocat/hello-world-javascript-action@v1.1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          who-to-greet: 'Mona the Octocat'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          node-version: '20.x'
+      - run: npm ci
+      # or one-off:
+      - run: npm install execa
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const execa = require('execa')
+
+            const { stdout } = await execa('echo', ['hello', 'world'])
+
+            console.log(stdout)
